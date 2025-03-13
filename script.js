@@ -54,7 +54,7 @@ const gameBoard = (function (){
   
 
         possibleOutcomes.forEach((outcome) => {
-            console.log(outcome);
+            // console.log(outcome);
             if (outcome.every(item => item === player.player1.value)){
                 console.log('player 1 wins');
                 player.player1.victory = true
@@ -126,28 +126,42 @@ const gameControl = (function () {
 
     const playRound = () => {
         let winner ;
+       
 
-        do {
+        function gameLoop() {
             checkPlayerTurn();
-            console.log(`its ${ playerTurn.name}'s turn !`);
-            let row = prompt('choose row');
-            let col = prompt('choose column')
-            gameBoard.placeMarker(row,col,playerTurn.value)
-            gameBoard.winnerCheck();
-            console.log(gameBoard.winnerCheck.winner);
-            
-            if (player.player1.victory == true) { winner = player.player1.victory}
-            if (player.player2.victory == true) { winner = player.player2.victory}
+            console.log(`It's ${playerTurn.name}'s turn!`);
 
-        } while (winner == undefined);
+            // Wait for user input
+            let row = prompt('Choose row');
+            let col = prompt('Choose column');
+
+            gameBoard.placeMarker(row, col, playerTurn.value);
+            gameBoard.winnerCheck();
+            // console.log(gameBoard.winnerCheck.winner);
+            
+            // Refresh UI
+            gameUI.display();  
+
+            if (player.player1.victory) {
+                winner = player.player1.victory;
+            } 
+            if (player.player2.victory) {
+                winner = player.player2.victory;
+            }
+
+            if (winner === undefined) {
+                setTimeout(gameLoop, 100); // Allow UI to refresh before the next iteration
+            } else {
+                console.log(`Winner: ${playerTurn.name}`);
+            }
+        }
+
+        // Start the game loop
+        gameLoop();
+
 
         if ( winner !== undefined){
-            // checkPlayerTurn();
-            // console.log(`its ${ playerTurn.name}'s turn !`);
-            // let row = prompt('choose row');
-            // let col = prompt('choose column')
-            // gameBoard.placeMarker(row,col,playerTurn.value)
-            // gameBoard.winnerCheck();
             console.log('GAME OVER')
         } 
    
@@ -159,3 +173,32 @@ const gameControl = (function () {
 })();
 
 const game = gameControl.playRound
+
+
+const  gameUI = (function (){
+
+    const contents = {
+        board : document.querySelectorAll('.box'),
+        start : document.querySelector('#start'),
+        reset : document.querySelector('#reset')
+        
+
+    }
+
+    function display(){
+        gameBoard.getBoard().forEach( (row , index) => {
+            for (const key in row) {
+                contents.board.forEach((box) => {
+                    if (box.dataset.id == key && box.dataset.index == index){
+                        box.textContent = row[key]
+                        // `console.log(box.textContent);`
+                    }
+                })   
+            }
+        })
+    }
+
+    return {
+        display
+    }
+}())
