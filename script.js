@@ -163,7 +163,7 @@ const  gameUI = (function (){
         firstPlayer : document.querySelector('.player1'),
         secondPlayer : document.querySelector('.player2'),
         winner : document.querySelector('.winner'),
-        startGame : document.querySelector('dialog button'),
+        inputNames : document.querySelector('dialog button'),
         firstPlayerInput : document.querySelector('.firstPLayerInput'),
         secondPlayerInput : document.querySelector('.secondPlayerInput'),
         turn : document.querySelector('.turn'),
@@ -249,7 +249,7 @@ const  gameUI = (function (){
         contents.dialog.showModal()
     })
 
-    contents.startGame.addEventListener('click', (e) => {
+    contents.inputNames.addEventListener('click', (e) => {
         e.preventDefault();
         contents.firstPlayer.textContent +=  contents.firstPlayerInput.value 
         contents.secondPlayer.textContent += contents.secondPlayerInput.value 
