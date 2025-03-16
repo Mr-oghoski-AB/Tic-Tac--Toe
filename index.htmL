@@ -8,6 +8,24 @@
 </head>
 <body>
     <header>TIC-TAC-TOE</header>
+    <dialog>
+        <form action="">
+            <h1>WELCOME</h1>
+            <p>please input player names</p>
+            <div>
+                <label for="player1">player1</label>
+                <input class="firstPLayerInput" type="text" minlength="4" placeholder="player1" required>
+            </div>
+            <div>
+                <label for="player2">player2</label>
+                <input class="secondPlayerInput" type="text" minlength="4" placeholder="player2"
+                required>
+            </div>
+            <div>
+                <button>start game</button>
+            </div>
+        </form>
+    </dialog>
     <div id="bod">
         <div id="container">
             <div class="box" data-id="col1" data-index="0" data-row="0"></div>
@@ -21,8 +39,16 @@
             <div class="box" data-id="col3" data-index="2" data-row="2"></div>
         </div>
         <div>
-            <button id="start" onclick="game()">start</button>
+            <div>
+                <p class="player1">PLAYER 1:</p>
+                <p class="player2">PLAYER 2:</p>
+                <p class="turn"></p>
+            </div>
+            <button id="start">start</button>
             <button id="reset" >reset</button>
+        </div>
+        <div>
+            <h3 class="winner"></h3>
         </div>
     </div>
     <script src="./script.js"></script>

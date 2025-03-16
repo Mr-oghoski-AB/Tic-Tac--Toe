@@ -133,6 +133,7 @@ const gameControl = (function () {
     const playRound = () => {
 
         function gameLoop() {
+            gameUI.getBoardContent().turn.textContent = `It's ${gameControl.getPlayerTurn().name}'s turn!`;
             console.log(`It's ${playerTurn.name}'s turn!`);
             gameUI.interact();
         }
@@ -157,11 +158,24 @@ const  gameUI = (function (){
     const contents = {
         board : document.querySelectorAll('.box'),
         start : document.querySelector('#start'),
-        reset : document.querySelector('#reset')
+        reset : document.querySelector('#reset'),
+        dialog : document.querySelector('dialog'),
+        firstPlayer : document.querySelector('.player1'),
+        secondPlayer : document.querySelector('.player2'),
+        winner : document.querySelector('.winner'),
+        startGame : document.querySelector('dialog button'),
+        firstPlayerInput : document.querySelector('.firstPLayerInput'),
+        secondPlayerInput : document.querySelector('.secondPlayerInput'),
+        turn : document.querySelector('.turn'),
+        winner : document.querySelector('.winner')
 
     }
     board = Array.from(contents.board)
     contents.reset.addEventListener('click' , (reset))
+    contents.start.addEventListener('click', () => {
+        game();
+        document.getElementById('start').style.display = 'none'
+    })
 
     
     function display(){
@@ -175,11 +189,10 @@ const  gameUI = (function (){
             }
         })
     }
-
+    let winner = undefined ;
     function interact (){
         board.forEach((box) => {
             box.addEventListener('click' , (e) => {
-                let winner = undefined ;
                 let col = box.dataset.id
                 let row = box.dataset.row
                 gameBoard.placeMarker(row,col,gameControl.getPlayerTurn().value);
@@ -188,20 +201,27 @@ const  gameUI = (function (){
                 gameBoard.winnerCheck();
                 if (player.player1.victory) {
                     winner = player.player1.victory;
+                    
+                    
                 } 
                 if (player.player2.victory) {
                     winner = player.player2.victory;
+                  
                 }
     
                 if (winner === undefined) {
                     gameControl.switchPlayer();  // Only switch player after a valid move
-                    console.log('was here');
+                    contents.turn.textContent = `It's ${gameControl.getPlayerTurn().name}'s turn!`;
+                    console.log(`It's ${gameControl.getPlayerTurn().name}'s turn!`);
                     
                     // game();  // Restart the loop
                 } else {
-                    console.log(`Winner: ${gameControl.getPlayerTurn().name}`);
+                    contents.winner.textContent = `Winner: ${gameControl.getPlayerTurn().name}`
+                    console.log(`Winner: ${gameControl.getPlayerTurn().name} !!!`);
                     console.log('GAME OVER');
+                    
                 }  
+               
             })
         })
     }
@@ -211,13 +231,41 @@ const  gameUI = (function (){
             for (const key in row) {
                 row[key] = ''
             }
-            display()
+            display();
+
         })
+        if (gameControl.getPlayerTurn() == player.player2){
+            gameControl.getPlayerTurn().victory = false;
+            gameControl.switchPlayer()
+        }
+        gameControl.getPlayerTurn().victory = false;
+        contents.turn.textContent =  `It's ${gameControl.getPlayerTurn().name}'s turn!`;
+        console.log(`It's ${gameControl.getPlayerTurn().name}'s turn!`);
+        winner = undefined
+        contents.winner.textContent = '';
     }
+
+    document.addEventListener('DOMContentLoaded' , () => {
+        contents.dialog.showModal()
+    })
+
+    contents.startGame.addEventListener('click', (e) => {
+        e.preventDefault();
+        contents.firstPlayer.textContent +=  contents.firstPlayerInput.value 
+        contents.secondPlayer.textContent += contents.secondPlayerInput.value 
+        player.player1.name = contents.firstPlayerInput.value
+        player.player2.name = contents.secondPlayerInput.value
+        contents.dialog.close()
+    })
+
+    const getBoardContent = () => contents;
+    const getWinner = () => winner;
 
     return {
         display,
-        interact
+        interact,
+        getBoardContent,
+        getWinner
     }
 }())
 
