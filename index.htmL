@@ -22,7 +22,7 @@
                 required>
             </div>
             <div>
-                <button>start game</button>
+                <button>Input Names</button>
             </div>
         </form>
     </dialog>
@@ -38,14 +38,18 @@
             <div class="box" data-id="col2" data-index="2" data-row="2"></div>
             <div class="box" data-id="col3" data-index="2" data-row="2"></div>
         </div>
-        <div>
-            <div>
-                <p class="player1">PLAYER 1:</p>
-                <p class="player2">PLAYER 2:</p>
+        <div class="holder">
+            <div id="section">
+                <div class="players">
+                    <p class="player1">PLAYER 1:</p>
+                    <p class="player2">PLAYER 2:</p>
+                </div>
                 <p class="turn"></p>
             </div>
-            <button id="start">start</button>
-            <button id="reset" >reset</button>
+            <div>
+                <button id="start">start</button>
+                <button id="reset" >reset</button>
+            </div>
         </div>
         <div>
             <h3 class="winner"></h3>

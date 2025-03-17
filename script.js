@@ -250,12 +250,16 @@ const  gameUI = (function (){
     })
 
     contents.inputNames.addEventListener('click', (e) => {
-        e.preventDefault();
+       
         contents.firstPlayer.textContent +=  contents.firstPlayerInput.value 
         contents.secondPlayer.textContent += contents.secondPlayerInput.value 
         player.player1.name = contents.firstPlayerInput.value
         player.player2.name = contents.secondPlayerInput.value
-        contents.dialog.close()
+        if (player.player1.name.length > 3 && player.player2.name.length > 3){
+            e.preventDefault();
+            contents.dialog.close()
+        }
+        
     })
 
     const getBoardContent = () => contents;

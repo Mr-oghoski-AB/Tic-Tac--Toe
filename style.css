@@ -1,0 +1,179 @@
+:root {
+    --headerColor: #2E073F;
+    --body: #7A1CAC;
+    --container: #2E073F;
+    --marker: #AD49E1;
+    --fontColour: #EBD3F8;
+    --new : #EBD3F8;
+}
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+body {
+    display: grid;
+    grid-template: 1fr 4fr / 1fr;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header {
+    text-align: center;
+    background-color: var(--headerColor);
+    color: var(--new);
+    font-weight: 800;
+    font-size: xx-large;
+    align-content: center;
+}
+
+#bod {
+    align-content: center;
+    background-color: var(--body);
+    /* height: 80vh; */
+    position: relative;
+}
+h3{
+    color: var(--fontColour);
+    font-weight: 900;
+    font-size: xx-large;
+    position: absolute;
+    left: 39%;
+    top: 80%;
+}
+#container {
+    width: 20rem;
+    min-width: 5rem;
+    height: 300px;
+    background-color: var(--container);
+    display: grid;
+    grid-template: repeat(3,1fr)/repeat(3,1fr);
+    position: absolute;
+    top: 20%;
+    left: 35%;
+}
+
+.box {
+    border: 2px solid black;
+    color: var(--marker);
+    font-size: 70px;
+    font-weight: 800;
+    text-align: center;
+}
+
+form{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+
+}
+dialog {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    height: 200px;
+    background-color: var(--headerColor);
+    color: var(--fontColour);
+    height: 500px;
+    width: 300px;
+    border-radius: 30px;
+    animation: fade-out 0.7s ease-out;
+}
+
+::backdrop {
+    backdrop-filter: blur(2px);
+    
+}
+dialog:open {
+    animation: fade-in 0.7s ease-out;
+  }
+  
+  dialog:open::backdrop {
+    animation: backdrop-fade-in 0.7s ease-out forwards;
+  }
+  
+  /* Animation keyframes */
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: scaleY(0);
+      display: none;
+    }
+  
+    100% {
+      opacity: 1;
+      transform: scaleY(1);
+      display: block;
+    }
+  }
+  
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+      transform: scaleY(1);
+      display: block;
+    }
+  
+    100% {
+      opacity: 0;
+      transform: scaleY(0);
+      display: none;
+    }
+  }
+  
+  @keyframes backdrop-fade-in {
+    0% {
+      background-color: rgb(0 0 0 / 0%);
+    }
+  
+    100% {
+      background-color: rgb(0 0 0 / 25%);
+    }
+  }
+
+dialog button {
+    border-radius: 30px;
+    color: var(--fontColour);
+    background-color: var(--marker);
+    width: 100px;
+    height: 40px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+div button:hover {
+    transform: scaleY(1.1) scaleX(1.2);
+    transition: ease-in-out 0.5s;
+}
+.holder {
+    height: 100px;
+    padding-left: 100px ;
+}
+#section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+
+}
+
+p {
+    font-weight: 600;
+    color: var(--fontColour);
+}
+
+#bod button {
+    border-radius: 30px;
+    color: var(--fontColour);
+    background-color: var(--marker);
+    width: 100px;
+    height: 40px;
+    border: 1px solid white;
+    cursor: pointer;
+}
